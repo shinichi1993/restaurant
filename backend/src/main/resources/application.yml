@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/restaurant_db  # <== sửa theo DB của bạn
+    username: postgres                                   # <== user
+    password: root                                     # <== password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none       # Không cho JPA tự tạo bảng, dùng Flyway
+    show-sql: true         # Log SQL ra console
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+logging:
+  level:
+    org.springframework: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE   # log giá trị bind (:1, :2)
