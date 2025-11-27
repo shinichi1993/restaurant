@@ -42,8 +42,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 // Bật CORS cho frontend
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                // JWT filter phải đặt TRƯỚC authorizeHttpRequests
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                
                 // Stateless session (chỉ dùng JWT)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // Phân quyền cho từng endpoint
@@ -70,7 +69,9 @@ public class SecurityConfig {
 
                         // Các API khác yêu cầu JWT
                         .anyRequest().authenticated()
-                );
+                )
+		// JWT filter phải đặt TRƯỚC authorizeHttpRequests
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
         /*
